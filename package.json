@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "滑动拼图验证",
   "author": "59586832@qq.com <59586832@qq.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
@@ -12,6 +12,10 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanghua0802/slider-verify.git"
   },
   "dependencies": {
     "vue": "^2.5.2",

@@ -2,29 +2,146 @@
 
 > 滑动拼图验证
 
-## Build Setup
+#安装
+npm i slider-verify
 
-``` bash
-# install dependencies
-npm install
+#使用
+```angular2html
+<template>
+  <div class="slider-verify">
+    <div>
+      <slider-verify
+        @slider-verify="sliderVerify"
+        width="450"
+        height="205"
+        show-type="1"
+      ></slider-verify>
+      <div class="verify"> {{ isVerify ? '验证成功' : '' }}</div>
+    </div>
+  </div>
+</template>
 
-# serve with hot reload at localhost:8080
-npm run dev
+<script>
+import sliderVerify from 'slider-verify'
 
-# build for production with minification
-npm run build
+export default {
+  name: "index",
+  components: {
+    sliderVerify
+  },
 
-# build for production and view the bundle analyzer report
-npm run build --report
+  data(){
+    return{
+      isVerify: false,
+    }
+  },
 
-# run unit tests
-npm run unit
+  methods: {
+    //图形验证
+    sliderVerify(isVerify) {
+      this.isVerify = isVerify
+      console.log(isVerify)
+    },
+  },
 
-# run e2e tests
-npm run e2e
+}
+</script>
+```
+#props
+```angular2html
+<!--
+    //小拼块大小
+    l: {
+      type: Number,
+      default: 40
+    },
 
-# run all tests
-npm test
+    //小拼块圆角半径
+    radius: {
+      type: Number,
+      default: 9
+    },
+
+    //拼图宽度
+    width: {
+      type: [Number, String],
+      default: 310
+    },
+
+   //拼图高度
+    height: {
+      type: [Number, String],
+      default: 155
+    },
+
+    //滑动条文字
+    sliderText: {
+      type: String,
+      default: '向右拖动滑块填充拼图'
+    },
+
+    //拼图精度
+    accuracy: {
+      type: Number,
+      default: 3 // 若为 -1 则不进行机器判断
+    },
+
+    //showType为3 弹出式时，控制显示与隐藏
+    show: {
+      type: Boolean,
+      default: false
+    },
+
+    //背景图数组集合
+    imgs: {
+      type: Array,
+      default: () => {
+        return [
+          'https://t7.baidu.com/it/u=860330160,4117395242&fm=193&f=GIF',
+          'https://t7.baidu.com/it/u=860330160,4117395242&fm=193&f=GIF',
+          'https://img2.baidu.com/it/u=2859830666,3560048188&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=150',
+          'https://img0.baidu.com/it/u=3174225490,1485629145&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=150',
+          'https://img0.baidu.com/it/u=443192671,4249194390&fm=253&fmt=auto&app=138&f=JPEG?w=602&h=383',
+        ]
+      }
+    },
+
+    //滑动按钮高度
+    sliderHeight: {
+      type: Number,
+      default: 40
+    },
+
+    //拼图方式，1嵌入式，2触发式，3弹出式
+    showType: {
+      type: [Number, String],
+      default: 1
+    },
+
+    //滑块自定义样式
+    sliderStyle: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+
+    //3弹出式时点击遮罩是否可关闭
+    maskClose: {
+      type: Boolean,
+      default: false,
+    }
+
+-->
+
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+#Event
+```angular2html
+slider-verify 验证事件， true/false
+refresh  刷新事件
+success  验证成功事件
+again  验证失败重试事件
+fail  失败事件
+close  3弹出式时点击遮罩关闭事件
+```

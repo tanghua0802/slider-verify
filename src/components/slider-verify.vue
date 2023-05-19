@@ -55,38 +55,49 @@ function square(x) {
 export default {
   name: 'slider-verify',
   props: {
-    // block length
+    //小拼块大小
     l: {
       type: Number,
       default: 40
     },
-    // block radius
+
+    //小拼块圆角半径
     radius: {
       type: Number,
       default: 9
     },
-    // canvas width
+
+    //拼图宽度
     width: {
       type: [Number, String],
       default: 310
     },
-    // canvas height
+
+    //拼图高度
     height: {
       type: [Number, String],
       default: 155
     },
+
+    //滑动条文字
     sliderText: {
       type: String,
       default: '向右拖动滑块填充拼图'
     },
+
+    //拼图精度
     accuracy: {
       type: Number,
       default: 3 // 若为 -1 则不进行机器判断
     },
+
+    //showType为3 弹出式时，控制显示与隐藏
     show: {
       type: Boolean,
       default: false
     },
+
+    //背景图数组集合
     imgs: {
       type: Array,
       default: () => {
@@ -99,16 +110,19 @@ export default {
         ]
       }
     },
+
     //滑动按钮高度
     sliderHeight: {
       type: Number,
       default: 40
     },
+
     //拼图方式，1嵌入式，2触发式，3弹出式
     showType: {
       type: [Number, String],
       default: 1
     },
+
     //滑块自定义样式
     sliderStyle: {
       type: Object,
@@ -116,6 +130,7 @@ export default {
         return {}
       }
     },
+
     //3弹出式时点击遮罩是否可关闭
     maskClose: {
       type: Boolean,

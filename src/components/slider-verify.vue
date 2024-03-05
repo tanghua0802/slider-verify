@@ -27,13 +27,13 @@
       <div :style="{height: sliderHeight + 'px', 'line-height': sliderHeight + 'px', ...sliderStyle}"
            :class="{'slide-verify-slider': true ,'container-active': containerActive, 'container-success': containerSuccess, 'container-fail': containerFail}">
         <div class="slide-verify-slider-mask container-default"
-             :style="{width: sliderMaskWidth + 'px', height: (sliderHeight - 2) + 'px'}">
+             :style="{width: sliderMaskWidth + 'px', height: sliderHeight + 'px'}">
           <div @mousedown="sliderDown"
                @touchstart="touchStartEvent"
                @touchmove="handleMoveEvent($event, 'touch')"
                @touchend="handleMoveEndEvent($event, 'touch')"
                class="slide-verify-slider-mask-item"
-               :style="{left: sliderLeft + 'px', height: (sliderHeight - 2) + 'px'}">
+               :style="{left: sliderLeft + 'px', height: sliderHeight + 'px', width: sliderWidth + 'px'}">
             <div class="slide-verify-slider-mask-item-icon"></div>
           </div>
         </div>
@@ -113,6 +113,12 @@ export default {
 
     //滑动按钮高度
     sliderHeight: {
+      type: Number,
+      default: 40
+    },
+
+    //滑动按钮高度
+    sliderWidth: {
       type: Number,
       default: 40
     },
@@ -216,7 +222,7 @@ export default {
         img = this.imgLoad()
         return false
       }
-      img.onload = (e) => {
+      img.onload = () => {
         this.drawBlock()
         this.canvasCtx.drawImage(img, 0, 0, this.width, this.height)
         this.blockCtx.drawImage(img, 0, 0, this.width, this.height)
@@ -316,10 +322,12 @@ export default {
       if (!this.isMouseDown) return false
       const moveX = type === 'mouse' ? e.clientX - this.originX : e.changedTouches[0].pageX - this.originX
       const moveY = type === 'mouse' ? e.clientY - this.originY : e.changedTouches[0].pageY - this.originY
-      if (moveX < 0 || moveX + 38 >= this.width) return false
+      if (moveX < 0 || moveX + (this.sliderWidth) >= this.width) return false
       this.sliderLeft = moveX
-      let blockLeft = (this.width - 40 - 20) / (this.width - 40) * moveX
-      this.block.style.left = blockLeft + 'px'
+
+      let maxBlockLeft = this.width - this.l; // 计算拖动块最大左边距
+      let blockLeft = maxBlockLeft * (moveX / (this.width - this.sliderWidth)); // 动态计算 blockLeft
+      this.block.style.left = `${Math.min(blockLeft, maxBlockLeft)}px`;
 
       this.containerActive = true // add active
       this.sliderMaskWidth = (moveX + 2)
@@ -568,7 +576,8 @@ export default {
   top: 0;
   height: 40px;
   border: 0 solid #1991FA;
-  background: #D1E9FE
+  background: #D1E9FE;
+  box-sizing: border-box;
 }
 
 .slide-verify-slider-mask-item {
@@ -580,7 +589,8 @@ export default {
   background: #fff;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: background .2s linear
+  transition: background .2s linear;
+  box-sizing: border-box;
 }
 
 .slide-verify-slider-mask-item:hover {
@@ -602,31 +612,31 @@ export default {
 }
 
 .container-default .slide-verify-slider-mask-item {
-  height: 38px;
+  height: 40px;
   /*top: -1px;*/
   border: 1px solid #ffffff;
 }
 
 .container-active .slide-verify-slider-mask-item {
-  height: 38px;
+  height: 40px;
   top: -1px;
   border: 1px solid #1991FA;
 }
 
 .container-active .slide-verify-slider-mask {
-  height: 38px;
+  height: 40px;
   border-width: 1px;
 }
 
 .container-success .slide-verify-slider-mask-item {
-  height: 38px;
+  height: 40px;
   top: -1px;
   border: 1px solid #52CCBA;
   background-color: #52CCBA !important;
 }
 
 .container-success .slide-verify-slider-mask {
-  height: 38px;
+  height: 40px;
   border: 1px solid #52CCBA;
   background-color: #D2F4EF;
 }
@@ -636,14 +646,14 @@ export default {
 }
 
 .container-fail .slide-verify-slider-mask-item {
-  height: 38px;
+  height: 40px;
   top: -1px;
   border: 1px solid #f57a7a;
   background-color: #f57a7a !important;
 }
 
 .container-fail .slide-verify-slider-mask {
-  height: 38px;
+  height: 40px;
   border: 1px solid #f57a7a;
   background-color: #fce1e1;
 }

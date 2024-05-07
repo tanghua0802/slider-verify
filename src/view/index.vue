@@ -64,8 +64,8 @@
         } else {
           //前端验证成功，提交接口验证
           console.log(e)
+          this.isVerify = e.result
         }
-        this.isVerify = e.result
       },
     },
 

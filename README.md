@@ -50,11 +50,30 @@ export default {
 #props
 ```angular2html
 <!--
-    //小拼块大小
-    l: {
+    // 小拼块X轴位置
+    blockX: {
+      type: Number,
+      default: 0
+    },
+
+    // 小拼块Y轴位置
+    blockY: {
+      type: Number,
+      default: 0
+    },
+
+    // 小拼块颜色
+    blockColor: {
+      type: String,
+      default: 'rgba(255, 255, 255, 0.4)',
+    },
+
+    // 小拼块大小
+    size: {
       type: Number,
       default: 40
     },
+
 
     //小拼块圆角半径
     radius: {

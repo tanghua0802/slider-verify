@@ -1,6 +1,6 @@
 {
   "name": "slider-verify",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "滑动拼图验证",
   "author": "59586832@qq.com <59586832@qq.com>",
   "private": false,
@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "axios": "^0.25.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
